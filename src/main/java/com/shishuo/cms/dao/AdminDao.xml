@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Changsha Shishuo Network Technology Co., Ltd. All rights reserved. -->
+<!-- 长沙市师说网络科技有限公司 版权所有 -->
+<!-- http://www.shishuo.com -->
+
+<mapper namespace="com.shishuo.cms.dao.AdminDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+
+	<insert id="addAdmin" parameterType="com.shishuo.cms.entity.Admin">
+		insert into
+		admin(name,password,createTime)
+		value(#{name},#{password},#{createTime})
+		<selectKey resultType="long" keyProperty="adminId">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+
+	<delete id="deleteAdmin" parameterType="long">
+		delete from admin where
+		adminId=#{adminId}
+	</delete>
+
+	<!-- ############################## -->
+	<!-- ###### 修改 ###### -->
+	<!-- ############################## -->
+
+	<update id="updateAdminByadminId">
+		update admin set password=#{password}
+		where adminId=#{adminId}
+	</update>
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+
+	<select id="getAllList" resultType="com.shishuo.cms.entity.Admin">
+		select * from admin limit
+		#{offset},#{rows}
+	</select>
+
+	<select id="getAllListCount" resultType="int">
+		select count(*) from
+		admin
+	</select>
+
+	<select id="getAdminById" parameterType="long"
+		resultType="com.shishuo.cms.entity.Admin">
+		select * from admin where adminId=#{adminId}
+	</select>
+
+	<select id="getAdminByName" resultType="com.shishuo.cms.entity.vo.AdminVo">
+		select * from admin
+		where name=#{name}
+	</select>
+
+</mapper>  

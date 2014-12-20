@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Changsha Shishuo Network Technology Co., Ltd. All rights reserved. -->
+<!-- 长沙市师说网络科技有限公司 版权所有 -->
+<!-- http://www.shishuo.com -->
+
+<mapper namespace="com.shishuo.cms.dao.HeadlineDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+
+	<insert id="addHeadline" parameterType="com.shishuo.cms.entity.Headline">
+		insert into
+		headline(name,picture,url,sort,createTime)
+		value(#{name},#{picture},#{url},#{sort},#{createTime})
+		<selectKey resultType="long" keyProperty="headlineId">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+	
+	<delete id="deleteHeadline">
+		delete from headline where headlineId=#{headlineId}
+	</delete>
+
+	<!-- ############################## -->
+	<!-- ###### 修改 ###### -->
+	<!-- ############################## -->
+	
+	<update id="updateHeadlineById">
+		update headline set name=#{name},picture=#{picture},url=#{url} where headlineId=#{headlineId}
+	</update>
+	
+	<update id="updateSortById">
+		update headline set sort=#{sort} where headlineId=#{headlineId}
+	</update>
+	
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+	
+	<select id="getHeadlineList" resultType="com.shishuo.cms.entity.vo.HeadlineVo">
+		select * from headline order by sort
+	</select>
+	
+	<select id="getHeadlineById" resultType="com.shishuo.cms.entity.vo.HeadlineVo">
+		select * from headline where headlineId=#{headlineId}
+	</select>
+</mapper>  

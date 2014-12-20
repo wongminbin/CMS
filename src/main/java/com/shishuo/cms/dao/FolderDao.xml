@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Changsha Shishuo Network Technology Co., Ltd. All rights reserved. -->
+<!-- 长沙市师说网络科技有限公司 版权所有 -->
+<!-- http://www.shishuo.com -->
+
+<mapper namespace="com.shishuo.cms.dao.FolderDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+
+	<insert id="addFolder" parameterType="com.shishuo.cms.entity.Folder">
+		insert into
+		folder(fatherId,ename,name,content,path,level,sort,count,status,`check`,createTime)
+		value(#{fatherId},#{ename},#{name},#{content},#{path},#{level},#{sort},#{count},#{status},#{check},#{createTime})
+		<selectKey resultType="long" keyProperty="folderId">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+
+	<delete id="deleteFolder" parameterType="long">
+		delete from folder
+		where
+		folderId=#{folderId}
+	</delete>
+
+	<!-- ############################## -->
+	<!-- ###### 修改 ###### -->
+	<!-- ############################## -->
+	<update id="updateSort" parameterType="long">
+		update folder set
+		sort=#{sort} where folderId=#{folderId}
+	</update>
+
+	<update id="updateCount">
+		update folder set count=#{count} where
+		folderId=#{folderId}
+	</update>
+
+	<update id="updatePath">
+		update folder set path=#{path} where
+		folderId=#{folderId}
+	</update>
+	
+	<update id="updateFolderById">
+		update folder set name=#{name},ename=#{ename},status=#{status},content=#{content},height=#{height},width=#{width} where folderId=#{folderId}
+	</update>
+
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+
+	<select id="getFolderById" resultType="com.shishuo.cms.entity.vo.FolderVo">
+		select * from folder where
+		folderId=#{folderId}
+	</select>
+
+	<select id="getFolderListByFatherId" resultType="com.shishuo.cms.entity.vo.FolderVo">
+		select * from folder where fatherId=#{fatherId}
+		<if test="status !=null">and status = #{status}</if>
+		order by sort
+	</select>
+
+	<select id="getAllFolderList" resultType="com.shishuo.cms.entity.vo.FolderVo">
+		select * from folder order by path,sort
+	</select>
+
+	<select id="getFolderByEname" resultType="com.shishuo.cms.entity.Folder">
+		select * from folder
+		where ename=#{ename}
+	</select>
+
+</mapper>  

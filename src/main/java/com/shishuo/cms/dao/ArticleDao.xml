@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Changsha Shishuo Network Technology Co., Ltd. All rights reserved. -->
+<!-- 长沙市师说网络科技有限公司 版权所有 -->
+<!-- http://www.shishuo.com -->
+
+<mapper namespace="com.shishuo.cms.dao.ArticleDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+	<insert id="addArticle" parameterType="com.shishuo.cms.entity.Article">
+		insert into
+		article(folderId,path,adminId,title,summary,content,picture,status,login,`check`,createTime,updateTime)
+		values(#{folderId},#{path},#{adminId},#{title},#{summary},#{content},#{picture},#{status},#{login},#{check},#{createTime},#{updateTime})
+		<selectKey resultType="long" keyProperty="articleId">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+
+	<delete id="deleteArticleById" parameterType="com.shishuo.cms.entity.Article">
+		delete from article
+		where articleId=#{articleId}
+	</delete>
+
+	<delete id="deleteArticleListByStatus">
+		delete from article
+		where status=#{status}
+	</delete>
+
+	<!-- ############################## -->
+	<!-- ###### 修改 ###### -->
+	<!-- ############################## -->
+
+	<update id="updateArticle" parameterType="com.shishuo.cms.entity.Article">
+		UPDATE article SET
+		folderId=#{folderId},
+		path=#{path},
+		title=#{title},
+		summary=#{summary},
+		picture=#{picture},
+		content=#{content},
+		status=#{status},
+		login=#{login},
+		`check`=#{check},
+		createTime=#{createTime},
+		updateTime=#{updateTime}
+		WHERE
+		articleId=#{articleId}
+	</update>
+
+	<update id="updateViewCount" parameterType="long">
+		update article set
+		viewCount = #{viewCount} where articleId = #{articleId}
+	</update>
+
+	<update id="updateCommentCount" parameterType="long">
+		update article set
+		commentCount = #{commentCount} where articleId = #{articleId}
+	</update>
+	
+	<update id="updateCheck">
+		update article set `check`=#{check} where articleId=#{articleId}
+	</update>
+
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+
+	<select id="getArticleById" parameterType="long"
+		resultType="com.shishuo.cms.entity.vo.ArticleVo">
+		select * from article where articleId=#{articleId}
+	</select>
+
+	<select id="getArticleListOfDisplayByPath" resultType="com.shishuo.cms.entity.vo.ArticleVo">
+		select *
+		from article
+		where
+		path like #{path}"%" and status = 'display' and `check` = 'yes'
+		order by
+		createTime desc limit #{offset},#{rows}
+	</select>
+
+	<select id="getArticleCountOfDisplayByPath" resultType="Integer">
+		select
+		count(*)
+		from article
+		where
+		path like #{path}"%" and status = 'display' and `check` = 'yes'
+	</select>
+
+	<select id="getArticleCountByFolderId" resultType="Integer">
+		select
+		count(*)
+		from article where folderId = #{folderId}
+	</select>
+	
+	<select id="getArticleCountByAdminIdAndPath" resultType="Integer">
+		select
+		count(*)
+		from article where path like #{path}"%" and folderId in (select folderId from admin_folder where adminId = #{adminId})<if test="check !=null">and `check` = #{check}</if>
+	</select>
+
+	<select id="getArticleListByAdminIdAndPath" resultType="com.shishuo.cms.entity.vo.ArticleVo">
+		select * from
+		article
+		where path like #{path}"%" and folderId in (select folderId from admin_folder where adminId = #{adminId}) <if test="check !=null">and `check` = #{check}</if>
+		order by createTime
+		desc limit
+		#{offset},#{rows}
+	</select>
+
+</mapper>  

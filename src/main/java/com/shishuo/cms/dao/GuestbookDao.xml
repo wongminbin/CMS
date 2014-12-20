@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Changsha Shishuo Network Technology Co., Ltd. All rights reserved. -->
+<!-- 长沙市师说网络科技有限公司 版权所有 -->
+<!-- http://www.shishuo.com -->
+
+<mapper namespace="com.shishuo.cms.dao.GuestbookDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+
+	<insert id="addGuestbook" parameterType="com.shishuo.cms.entity.Guestbook">
+		insert into
+		guestbook(name,email,title,content,reply,status,createTime,replyTime)
+		value(#{name},#{email},#{title},#{content},#{reply},#{status},#{createTime},#{replyTime})
+		<selectKey resultType="long" keyProperty="guestbookId">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+
+
+	<!-- ############################## -->
+	<!-- ###### 修改 ###### -->
+	<!-- ############################## -->
+	
+	<update id="updateReplyById">
+		update guestbook set
+		reply=#{reply},status=#{status},replyTime=#{replyTime}
+		where guestbookId=#{guestbookId}
+	</update>
+	
+	<update id="updateStatusByMessageId">
+		update guestbook set status=#{status} where guestbookId=#{guestbookId}
+	</update>
+	
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+
+	<select id="getGuestbookById" resultType="com.shishuo.cms.entity.vo.GuestbookVo">
+		select * from guestbook where guestbookId=#{guestbookId}
+	</select>
+	
+	<select id="getGuestbookList" resultType="com.shishuo.cms.entity.vo.GuestbookVo">
+		select * from guestbook <if test="status !=null">where status = #{status}</if>order by
+		createTime desc limit #{offset},#{rows} 
+	</select>
+	
+	<select id="getGuestbookCountList" resultType="Integer">
+		select count(*) from guestbook <if test="status !=null">where status = #{status}</if>
+	</select>
+
+</mapper>  

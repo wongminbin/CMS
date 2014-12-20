@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Changsha Shishuo Network Technology Co., Ltd. All rights reserved. -->
+<!-- 长沙市师说网络科技有限公司 版权所有 -->
+<!-- http://www.shishuo.com -->
+
+<mapper namespace="com.shishuo.cms.dao.AdminFolderDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+
+	<insert id="addAdminFolder" parameterType="com.shishuo.cms.entity.AdminFolder">
+		insert into
+		admin_folder(adminId,folderId,createTime)
+		value(#{adminId},#{folderId},#{createTime})
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+
+	<delete id="deleteAdminFolder" parameterType="long">
+		delete from admin_folder where
+		adminId=#{adminId} and folderId=#{folderId}
+	</delete>
+
+	<!-- ############################## -->
+	<!-- ###### 修改 ###### -->
+	<!-- ############################## -->
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+	
+	<select id="getAdminFolderListById" resultType="com.shishuo.cms.entity.vo.AdminFolderVo">
+		select * from admin_folder where adminId=#{adminId}
+	</select>
+	
+	<select id="getAdminFolderById" resultType="com.shishuo.cms.entity.vo.AdminFolderVo">
+		select * from admin_folder where adminId=#{adminId} and folderId=#{folderId}
+	</select>
+
+</mapper>  

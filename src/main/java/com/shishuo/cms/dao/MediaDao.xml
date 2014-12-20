@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Changsha Shishuo Network Technology Co., Ltd. All rights reserved. -->
+<!-- 长沙市师说网络科技有限公司 版权所有 -->
+<!-- http://www.shishuo.com -->
+
+<mapper namespace="com.shishuo.cms.dao.MediaDao">
+
+	<!-- ############################## -->
+	<!-- ###### 增加 ###### -->
+	<!-- ############################## -->
+
+	<insert id="addMedia" parameterType="com.shishuo.cms.entity.Media">
+		insert into
+		media(kindId,name,path,size,type,kind,createTime)
+		value(#{kindId},#{name},#{path},#{size},#{type},#{kind},#{createTime})
+		<selectKey resultType="long" keyProperty="mediaId">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<!-- ############################## -->
+	<!-- ###### 删除 ###### -->
+	<!-- ############################## -->
+
+	<delete id="deleteMedia" parameterType="long">
+		delete from
+		media where mediaId=#{mediaId}
+	</delete>
+
+	<!-- ############################## -->
+	<!-- ###### 修改 ###### -->
+	<!-- ############################## -->
+
+	<update id="updateLinkByMediaId">
+		update media
+		set
+		link=#{link}
+		where
+		mediaId=#{mediaId}
+	</update>
+	
+	<update id="updateNameByMediaId">
+		update media
+		set
+		name=#{name}
+		where
+		mediaId=#{mediaId}
+	</update>
+
+	<!-- ############################## -->
+	<!-- ###### 查询 ###### -->
+	<!-- ############################## -->
+
+	<select id="getMediaById" parameterType="long"
+		resultType="com.shishuo.cms.entity.Media">
+		select * from media where mediaId=#{mediaId}
+	</select>
+
+	<select id="getMediaCountByKindId" resultType="Integer">
+		select
+		count(*)
+		from media where kindId=#{kindId} and kind = #{kind}
+	</select>
+
+	<select id="getMediaListByKindId" resultType="com.shishuo.cms.entity.Media">
+		select *
+		from
+		media where kindId=#{kindId} and kind = #{kind} order by
+		createTime desc limit #{offset},#{rows}
+	</select>
+
+	<select id="getMediaCountByKindAndType" resultType="Integer">
+		select
+		count(*)
+		from media where kindId=#{kindId} and kind = #{kind} and
+		type = #{type}
+	</select>
+
+	<select id="getMediaListByKindAndType" resultType="com.shishuo.cms.entity.Media">
+		select *
+		from
+		media where kindId=#{kindId} and kind = #{kind} and type =
+		#{type}  order by
+		createTime desc limit
+		#{offset},#{rows}
+	</select>
+</mapper>  
