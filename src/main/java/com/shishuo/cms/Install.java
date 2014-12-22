@@ -51,50 +51,6 @@ public class Install {
 	 * 
 	 */
 	private void welcome() {
-		System.out
-				.println("                                                                                ");
-		System.out
-				.println("          7                                                                     ");
-		System.out
-				.println("          ,,       7,,,,,,,,,,,,,,,,,,    ,=,,,,,,,      ,, 7       ,,,         ");
-		System.out
-				.println("    ,,   ,,,7  ,,,,,,,,,,,,,,,,,,,,,, 7  ,,,,,,,,,,,,  I,,,,,      ,,,,         ");
-		System.out
-				.println("  ,,,,,  ,,,  ?,,,,,,,,=II?,,,,,,,,,    7,,,,,,,,,,, 7   ,,,,     ,,,,          ");
-		System.out
-				.println("  ,,,,,   ,,   =+      7,,7                7,,,I         7,,,  7?,,+    7       ");
-		System.out
-				.println("  :,,,,   ,,        7  ,,,,                             I ,,,,,,,,,,,,,,,       ");
-		System.out
-				.println("  7,,,    ,,    77,,,,,,,,,,,,,,,,,,    7I,,,,,,,,7 7,,,,,,,,,,,,,,,,,,,,       ");
-		System.out
-				.println("  7,,,    ,,   ,,,,,,,,,,,,,,,,,,,,,   ,,,,,,,,,,,   ,,,,,,+        ,,,, 7      ");
-		System.out
-				.println("   =,,    ,,   ,,,,,,,,,,,,=   =,,,    ,,,,,,,,,,     ,,,?7        ,,,:         ");
-		System.out
-				.println("   ,,,    ,,    ,,,     ,,=     ,,,7    ,,,7 ,,,=    7,,,,,,,,,,,,,,,,          ");
-		System.out
-				.println("  7,,,    ,,    ,,,     ,,I     ,,,          ,,,     ,,,,,,,,,,,,,,,            ");
-		System.out
-				.println("   ,,,   +,,    ,,,    7,,?     ,,,          ,,,     ,,, 7    ,,,7              ");
-		System.out
-				.println("   ,,,   ,,,   ~,,?     ,,,     ,,,         ,,,,         ,,   ,,,               ");
-		System.out
-				.println("    ,7   ,,    ,,,     ~,,,     7,,=       7,,,? 7,,    ,,7   ,,                ");
-		System.out
-				.println("        ,,,    ,,,     ,,,,      ,,=       ,,,,,,,,7   ,,,   ,,,                ");
-		System.out
-				.println("     7,,,,,    ,,,     ,,,,      ,,7      ,,,,,,,~    ,,,    ,,,=         7 ,,  ");
-		System.out
-				.println("  ,,,,,,,,7      7     ,,,,             7,,,,,,,7   7,,,     ,,,,,,,~I I:,,,,=  ");
-		System.out
-				.println(" ,,,,,,,,7             ,,,,             ,,,,,      +,,,     I,,,,,,,,,,,,,,,,   ");
-		System.out
-				.println("  7?,,I                ,,,,             ,,,7       ,,,       ,,,,,,,,,,,,,,,,   ");
-		System.out
-				.println("                       777                                       7 ,,,,,,,,,    ");
-		System.out
-				.println("                                                                        7       ");
 		Properties props = System.getProperties();
 		System.out.println("\n\n欢迎使用【师说CMS】\n\n");
 		System.out.println("Windows: set MAVEN_OPTS=-Dfile.encoding=UTF-8");
@@ -107,8 +63,7 @@ public class Install {
 		System.out.println("用户的当前工作目录\t" + props.getProperty("user.dir"));
 		System.out.println("运行时环境版本\t\t" + props.getProperty("java.version"));
 		System.out.println("Java安装目录\t\t" + props.getProperty("java.home"));
-		System.out
-				.println("Java虚拟机供应商\t" + props.getProperty("java.vm.vendor"));
+		System.out.println("Java虚拟机供应商\t" + props.getProperty("java.vm.vendor"));
 		System.out.println("Java虚拟机名称\t\t" + props.getProperty("java.vm.name"));
 
 		System.out.println("\n\n【重要】在开始前，您需要配置 " + CMS_PROPERTIES
