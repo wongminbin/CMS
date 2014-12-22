@@ -159,11 +159,25 @@
 		</property>
 	</bean>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${jdbc.driverClass}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+    
+	    <property name="url" value="${jdbc.url}" />
+	    <property name="username" value="${jdbc.username}" />
+	    <property name="password" value="${jdbc.password}" />
+	    
+	    <property name="maxActive" value="${jdbc.maxActive}" />
+	    <property name="initialSize" value="${jdbc.initialSize}" />
+	    <property name="maxWait" value="${jdbc.maxWait}" />
+	    <property name="minIdle" value="${jdbc.minIdle}" />
+	 
+	    <property name="timeBetweenEvictionRunsMillis" value="60000" />
+	    <property name="minEvictableIdleTimeMillis" value="300000" />
+	 
+	    <property name="filters" value="stat" />
+	    <property name="validationQuery" value="SELECT 'x'" />
+	    <property name="testWhileIdle" value="true" />
+	    <property name="testOnBorrow" value="false" />
+	    <property name="testOnReturn" value="false" />
 	</bean>
 
 	<!-- 创建SqlSessionFactory，同时指定数据源 -->
